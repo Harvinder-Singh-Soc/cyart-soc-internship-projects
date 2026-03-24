@@ -8,6 +8,7 @@ Each folder represents a weekly task with scripts, scan outputs, and documentati
 - Week 01 – Task 01: Nmap Network Scanning and Automation (Kali + Metasploitable lab)
 - Week 01 – Task02-Network-Security-lab
 - Week 01 – Task03-Network-Monitoring
+- Week 02 - Task04_secure-network-metasploit-https
 ## Tech & Tools
 
 - Nmap (SYN, TCP connect, UDP scanning)
