@@ -42,9 +42,9 @@ The lab uses two VirtualBox networks:
 
 ## 1. Small Office Subnet Design
 
-- Designed a /27 subnet: `192.168.1.0/27` (30 usable hosts) for a 20-device office.
-- Built the LAN in Cisco Packet Tracer with 20 PCs connected to a central switch.
-- Validated connectivity using ICMP ping between hosts (0% packet loss).
+Designed a /27 subnet `192.168.1.0/27` (30 usable hosts) for a 20-device office and validated connectivity with ICMP ping.
+
+![Small office subnet topology](screenshots/subnet_topology.png)
 
 **Artifacts:**
 
@@ -54,26 +54,25 @@ The lab uses two VirtualBox networks:
 
 ## 2. Traffic Capture and Troubleshooting
 
-- Captured normal host-only traffic with Wireshark and analysed:
-  - Protocol Hierarchy (IPv4, TCP/UDP, DNS, ARP).
-  - I/O Graphs to spot short traffic spikes.
-- Broke Kali routing on purpose → `Network is unreachable` + no ICMP packets on wire.
-- Fixed routes/interfaces and confirmed successful pings to `192.168.10.131`, `8.8.8.8`, and `google.com`.
+Captured host-only traffic in Wireshark, analysed protocol hierarchy and I/O graphs, then broke and fixed routing to verify troubleshooting skills.
 
-**Artifacts:**
+![Wireshark protocol hierarchy](screenshots/wireshark_protocol_hierarchy.png)
 
-- `screenshots/wireshark_protocol_hierarchy.png`
-- `screenshots/wireshark_io_graph.png`
-- `screenshots/kali_ping_broken.png`
-- `screenshots/kali_ping_fixed.png`
+![Wireshark IO graph](screenshots/wireshark_io_graph.png)
+
+![Kali ping broken](screenshots/kali_ping_broken.png)
+
+![Kali ping fixed](screenshots/kali_ping_fixed.png)
 
 ## 3. ELK SIEM Setup
 
-- Deployed Elasticsearch and Kibana on ELK-SERVER; verified services via `systemctl`.
-- Configured Fleet with:
-  - `ELK-fleet-server-policy` for the SIEM server.
-  - `mint-system-policy` for Linux Mint victim (System + System auth logs).
-- Confirmed sshd events in Kibana Discover with fields: `source.ip`, `user.name`, `event.outcome`.
+Deployed Elasticsearch and Kibana on ELK-SERVER, configured Fleet policies, and started collecting system and auth logs from the Linux Mint victim.
+
+![ELK services running](screenshots/elk_services_running.png)
+
+![Fleet agents](screenshots/fleet_agents.png)
+
+![Discover SSH failures](screenshots/discover_ssh_failures.png)
 
 **Artifacts:**
 
@@ -84,12 +83,13 @@ The lab uses two VirtualBox networks:
 
 ## 4. SSH Brute-Force Incident & Threat Hunting
 
-- Launched Hydra brute-force from Kali (`192.168.10.131`) against SSH on `192.168.10.132` (user `victim`).
-- Captured SSH traffic in Wireshark (`tcp.port == 22`) to verify real connections.
-- Built Kibana dashboard:
-  - Failed SSH logins over time (clear brute-force spike).
-  - Top attacker IPs and usernames.
-  - Query for `event.outcome: "success"` to confirm **no successful logins** from attacker IP.
+Launched Hydra brute-force from Kali (`192.168.10.131`) against SSH on `192.168.10.132`, captured SSH packets, and hunted the attack in Kibana dashboards.
+
+![Hydra brute-force](screenshots/hydra_bruteforce.png)
+
+![Wireshark SSH traffic](screenshots/wireshark_ssh.png)
+
+![Kibana brute-force dashboard](screenshots/kibana_dashboard.png)
 
 **Artifacts:**
 
